@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <title>Maratonul Studentilor AR</title>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <link rel="stylesheet" href="styles.css" />
+
+    <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="gesture-detector.js"></script>
+    <script src="gesture-handler.js"></script>
+  </head>
+
+<body>
+  <!-- integram A-Frame Gestures prin -gesture detector- pentru a detecta gesturile-->
+  <a-scene
+    vr-mode-ui="enabled: false;"
+    renderer="logarithmicDepthBuffer: true;"
+    embedded
+    arjs="trackingMethod: best; sourceType: webcam;debugUIEnabled: false;detectionMode: mono_and_matrix; matrixCodeType: 4x4_BCH_13_5_5;"
+    gesture-detector
+  >
+        <!-- fata pliantului -->
+        <!-- Folosim proprietatea -animation- pentru a crea o rotatia automata a obiectului-->
+        <a-marker type="barcode" value="5">
+            <a-entity
+            position="0 0 0"
+            scale="5.5 5.5 5.5"
+            gltf-model="./assets/ub.glb"
+            animation="property: rotation; dur: 7000;
+                       to: 0 360 0; loop: true"
+            ></a-entity>
+        </a-marker>
+
+        <!-- spatele pliantului -->
+        <!-- folosind proprietatea -gesture handler- setam scala maxima si minima a obiectului 3d-->
+        <a-marker type="barcode" value="21">
+            <a-entity
+            position="0 0 0"
+            scale="0.03 0.03 0.03"
+            gltf-model="./assets/harta.gltf"
+            gesture-handler="minScale: 0.03; maxScale: 0.5"
+            ></a-entity>
+        </a-marker>
+    <!-- camera statica care se misca in functie de miscarea dispozitivului mobil -->
+    <a-entity camera></a-entity>
+  </a-scene>
+</body>
+</html>
